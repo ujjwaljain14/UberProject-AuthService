@@ -1,5 +1,6 @@
 package com.example.uberprojectauthservice.controllers;
 
+import com.example.uberprojectauthservice.dtos.DriverSignUpDto;
 import com.example.uberprojectauthservice.dtos.PassengerSignupRequestDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,4 +18,9 @@ public class AuthController {
         return null;
     }
 
+    @PostMapping("/signup/driver")
+    public ResponseEntity<?> signup(@RequestBody DriverSignUpDto driverSignUpDto) {
+
+        return null;
+    }
 }
