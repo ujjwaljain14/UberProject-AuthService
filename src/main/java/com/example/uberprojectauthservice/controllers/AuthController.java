@@ -10,10 +10,7 @@ import com.example.uberprojectauthservice.models.Driver;
 import com.example.uberprojectauthservice.models.Passenger;
 import com.example.uberprojectauthservice.services.AuthService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -44,6 +41,14 @@ public class AuthController {
 
     @PostMapping("/signup/driver")
     public ResponseEntity<?> signup(@RequestBody DriverSignUpDto driverSignUpDto) {
+        Driver driver = driverSignUpDtoToDriverAdapterImpl.convertDto(driverSignUpDto);
+        Driver newdriver = authService.signupDriver(driver);
+        return ResponseEntity.ok(driverToDriverDtoAdapterImpl.convertDto(newdriver));
+
+    }
+
+    @GetMapping("/signin/passenger")
+    public ResponseEntity<?> signin(@RequestBody DriverSignUpDto driverSignUpDto) {
         Driver driver = driverSignUpDtoToDriverAdapterImpl.convertDto(driverSignUpDto);
         Driver newdriver = authService.signupDriver(driver);
         return ResponseEntity.ok(driverToDriverDtoAdapterImpl.convertDto(newdriver));
