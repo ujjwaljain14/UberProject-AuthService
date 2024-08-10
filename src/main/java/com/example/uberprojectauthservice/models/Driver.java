@@ -18,11 +18,19 @@ import java.util.List;
 @AllArgsConstructor
 public class Driver extends BaseModel{
 
+    @Column(nullable=false)
     private String name;
+
+    @Column(nullable=false)
+    private String email;
+
+    @Column(nullable=false)
+    private String password;
 
     @Column(nullable = false, unique = true)
     private String licenseNumber;
 
+    @Column(nullable=false)
     private String phoneNumber;
 
     @OneToMany(mappedBy = "driver")

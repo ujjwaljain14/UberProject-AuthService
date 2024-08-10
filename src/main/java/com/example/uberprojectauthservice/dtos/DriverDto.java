@@ -1,6 +1,7 @@
 package com.example.uberprojectauthservice.dtos;
 
 import lombok.*;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
@@ -9,6 +10,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Component
 
 public class DriverDto {
 
@@ -21,6 +23,8 @@ public class DriverDto {
     private String password; //encrypted password
 
     private String phoneNumber;
+
+    private String licenseNumber;
 
     private Date createdAt;
 
