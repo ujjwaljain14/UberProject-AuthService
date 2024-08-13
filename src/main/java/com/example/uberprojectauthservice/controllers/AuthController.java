@@ -7,10 +7,12 @@ import com.example.uberprojectauthservice.adapters.PassengerToPassengerDtoAdapte
 import com.example.uberprojectauthservice.dtos.AuthRequestDto;
 import com.example.uberprojectauthservice.dtos.DriverSignUpDto;
 import com.example.uberprojectauthservice.dtos.PassengerSignupRequestDto;
-import com.example.uberprojectauthservice.models.Driver;
-import com.example.uberprojectauthservice.models.Passenger;
 import com.example.uberprojectauthservice.services.AuthService;
 import com.example.uberprojectauthservice.services.JwtService;
+import com.example.uberprojectentityservice.models.Driver;
+import com.example.uberprojectentityservice.models.Passenger;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -68,7 +70,7 @@ public class AuthController {
     }
 
     @PostMapping("/signin/passenger")
-    public ResponseEntity<?> signin(@RequestBody AuthRequestDto authRequestDto, HttpServletResponse response) {
+    public ResponseEntity<?> signin(@RequestBody AuthRequestDto authRequestDto, HttpServletRequest request, HttpServletResponse response) {
 
         Authentication authenticationRequest =
                 UsernamePasswordAuthenticationToken.unauthenticated(authRequestDto.getEmail(), authRequestDto.getPassword());
@@ -81,7 +83,7 @@ public class AuthController {
             String jwtToken = jwtService.createToken(payload, authRequestDto.getEmail());
 
             ResponseCookie cookie = ResponseCookie.from("jwtToken",jwtToken)
-                    .httpOnly(true)
+                    .httpOnly(true) //true makes it non accessible using javascript
                     .secure(false)
                     .maxAge(cookieExpiry)
                     .build();
@@ -90,7 +92,14 @@ public class AuthController {
         }else{
             throw new UsernameNotFoundException("Username not found");
         }
+    }
 
-
+    @GetMapping("/validate")
+    public ResponseEntity<?> validate(HttpServletRequest request){
+        for(Cookie cookie: request.getCookies()){
+            if(cookie.getName().equals("jwtToken"))
+                return ResponseEntity.ok(cookie.getValue());
+        }
+        return ResponseEntity.ok("success");
     }
 }

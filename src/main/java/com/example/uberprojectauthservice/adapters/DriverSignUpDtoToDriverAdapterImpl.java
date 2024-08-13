@@ -1,7 +1,7 @@
 package com.example.uberprojectauthservice.adapters;
 
 import com.example.uberprojectauthservice.dtos.DriverSignUpDto;
-import com.example.uberprojectauthservice.models.Driver;
+import com.example.uberprojectentityservice.models.Driver;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 

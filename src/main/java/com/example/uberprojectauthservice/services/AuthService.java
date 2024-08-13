@@ -1,9 +1,9 @@
 package com.example.uberprojectauthservice.services;
 
-import com.example.uberprojectauthservice.models.Driver;
-import com.example.uberprojectauthservice.models.Passenger;
 import com.example.uberprojectauthservice.repositories.DriverRepository;
 import com.example.uberprojectauthservice.repositories.PassengerRepository;
+import com.example.uberprojectentityservice.models.Driver;
+import com.example.uberprojectentityservice.models.Passenger;
 import org.springframework.stereotype.Service;
 
 @Service
